@@ -14,17 +14,17 @@ class StreamProcessor(object):
         
           This method:
           
-            1. Reads two digits at a time from the beginning of the stream
-            2. Converts the two digits into a number, and adds that number
+            chk 1. Reads two digits at a time from the beginning of the stream
+            chk 2. Converts the two digits into a number, and adds that number
                to a running total.
-            3. Once this number reaches 200 or more, the method returns how
+            chk 3. Once this number reaches 200 or more, the method returns how
                many two digit numbers it had to add together to reach its
                total.
-            4. If `process` reaches the end of the stream BEFORE it has
+            chk 4. If `process` reaches the end of the stream BEFORE it has
                reached a sum of 200, then it will return how many two
                digit numbers it found before reaching the end of the
                stream.
-            5. The method will add AT MOST 10 of these two digit numbers
+            chk 5. The method will add AT MOST 10 of these two digit numbers
                together: if it reaches the 10th two digit number and the
                sum has not yet reached 200, then the method will stop and
                return 10.
@@ -62,6 +62,13 @@ class StreamProcessor(object):
         # stream using the following code:
         #
         # digits = self._stream.read(2)
-
-
+        
+        while total <= 200:
+            digits = self._stream.read(2)
+            if count == 10:
+                return count
+            elif len(digits) < 2:
+                break            
+            total += int(digits)
+            count += 1
         return count
